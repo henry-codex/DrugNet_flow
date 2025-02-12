@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Flowchart</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .flowchart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .step, .decision {
+    padding: 15px;
+    margin: 10px;
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
+    text-align: center;
+    width: 220px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+  .step:hover, .decision:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: #e8f5e9;
+  }
+  .decision {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffeb3b;
+    border-color: #fbc02d;
+  }
+  .decision:hover {
+    background-color: #fff59d;
+  }
+  .arrow {
+    width: 2px;
+    height: 50px;
+    background-color: #4CAF50;
+    margin: 10px;
+    transition: all 0.3s ease;
+  }
+  .arrow-horizontal {
+    width: 50px;
+    height: 2px;
+    background-color: #4CAF50;
+    margin: 10px;
+    transition: all 0.3s ease;
+  }
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .description-box {
+    display: none;
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    padding: 10px;
+    border: 1px solid #4CAF50;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    width: 200px;
+    text-align: left;
+  }
+  .step:hover .description-box, .decision:hover .description-box {
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<div class="flowchart">
+  <div class="step">Start
+    <div class="description-box">Customer initiates the process by submitting a request to AYO.</div>
+  </div>
+  <div class="arrow"></div>
+  <div class="step">AYO Verification
+    <div class="description-box">AYO verifies the customer's details and processes the request with the attached prescription.</div>
+  </div>
+  <div class="arrow"></div>
+  <div class="step">Prescription Verification
+    <div class="description-box">Drugnet MCAs download claim information to verify the claim and prescription.</div>
+  </div>
+  <div class="arrow"></div>
+  <div class="step">Google Sheet Entry
+    <div class="description-box">Customer details are filled in a Google Sheet, including names and other relevant information. A unique ID is generated for the customer for the transaction.</div>
+  </div>
+  <div class="arrow"></div>
+  <div class="step">Generate Medicine List
+    <div class="description-box">MCA generates a list of medicines based on the verified prescription.</div>
+  </div>
+  <div class="arrow"></div>
+  <div class="step">Pharmacist Approval
+    <div class="description-box">Drugnet Pharmacists approve the claim after reviewing the medicine list.</div>
+  </div>
+  <div class="arrow"></div>
+  <div class="step">Update AYO Portal
+    <div class="description-box">MCA updates the AYO Portal with the final medication cost as per agreed pricing for Medicare.</div>
+  </div>
+  <div class="arrow"></div>
+  <div class="step">Notify Customer
+    <div class="description-box">Customer is notified of the claim approval.</div>
+  </div>
+  <div class="arrow"></div>
+  <div class="decision">Delivery Location?
+    <div class="description-box">Check if the delivery location is Accra/Tema or elsewhere.</div>
+  </div>
+  <div class="flex-row">
+    <div>
+      <div class="arrow-horizontal"></div>
+      <div class="step">Package & Deliver
+        <div class="description-box">Medication is packaged, dispatched, and delivered to the customer in Accra/Tema.</div>
+      </div>
+    </div>
+    <div>
+      <div class="arrow-horizontal"></div>
+      <div class="step">Send Unique Code
+        <div class="description-box">Unique Claim Code with medication list is sent to customers outside Accra/Tema for pickup from a fulfillment partner.</div>
+      </div>
+    </div>
+  </div>
+  <div class="arrow"></div>
+  <div class="step">Fulfillment Partner
+    <div class="description-box">Fulfillment Partner verifies the medication list and unique code via WhatsApp and serves the customer.</div>
+  </div>
+  <div class="arrow"></div>
+  <div class="step">Daily Reconciliation
+    <div class="description-box">Daily Reconciliation report is sent to the Fulfillment Partner and settled as per agreed pricing.</div>
+  </div>
+  <div class="arrow"></div>
+  <div class="step">End
+    <div class="description-box">Process completed successfully.</div>
+  </div>
+</div>
+
+<script>
+  // JavaScript to handle click events for descriptions (optional)
+  const steps = document.querySelectorAll('.step, .decision');
+  steps.forEach(step => {
+    step.addEventListener('click', () => {
+      const description = step.querySelector('.description-box');
+      description.style.display = description.style.display === 'block' ? 'none' : 'block';
+    });
+  });
+</script>
+
+</body>
+</html>
