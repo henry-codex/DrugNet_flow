@@ -3,169 +3,188 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interactive Flowchart</title>
+<title>Medication Process Flowchart</title>
 <style>
   body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9;
+    background-color: #f0f4f8;
     margin: 0;
     padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    min-height: 100vh;
   }
+  
   .flowchart {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
   }
-  .step, .decision {
-    padding: 15px;
-    margin: 10px;
-    border: 2px solid #4CAF50;
-    border-radius: 10px;
+
+  .process-step {
+    background: #ffffff;
+    border: 2px solid #2c7da0;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
     text-align: center;
-    width: 220px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    cursor: pointer;
     position: relative;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
   }
-  .step:hover, .decision:hover {
+
+  .process-step:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    background-color: #e8f5e9;
+    background: #e3f2fd;
   }
-  .decision {
+
+  .arrow {
+    width: 2px;
+    height: 40px;
+    background: #2c7da0;
+    margin: 10px 0;
+  }
+
+  .branch-container {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    margin: 20px 0;
+  }
+
+  .description-box {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #2c7da0;
+    padding: 15px;
+    border-radius: 8px;
+    width: 280px;
+    text-align: left;
+    z-index: 10;
+    display: none;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .process-step:hover .description-box {
+    display: block;
+  }
+
+  .decision-step {
+    background: #ffeb3b;
+    border-color: #f9a825;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ffeb3b;
-    border-color: #fbc02d;
   }
-  .decision:hover {
-    background-color: #fff59d;
-  }
-  .arrow {
-    width: 2px;
-    height: 50px;
-    background-color: #4CAF50;
-    margin: 10px;
-    transition: all 0.3s ease;
-  }
-  .arrow-horizontal {
-    width: 50px;
-    height: 2px;
-    background-color: #4CAF50;
-    margin: 10px;
-    transition: all 0.3s ease;
-  }
-  .flex-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-  .description-box {
-    display: none;
-    position: absolute;
-    top: 110%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #ffffff;
-    padding: 10px;
-    border: 1px solid #4CAF50;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    width: 200px;
-    text-align: left;
-  }
-  .step:hover .description-box, .decision:hover .description-box {
-    display: block;
+
+  .decision-step:hover {
+    background: #fff59d;
   }
 </style>
 </head>
 <body>
 
 <div class="flowchart">
-  <div class="step">Start
-    <div class="description-box">Customer initiates the process by submitting a request to AYO.</div>
+  <!-- Start of Process -->
+  <div class="process-step">
+    Start
+    <div class="description-box">Customer initiates the process by submitting a request to AYO</div>
   </div>
   <div class="arrow"></div>
-  <div class="step">AYO Verification
-    <div class="description-box">AYO verifies the customer's details and processes the request with the attached prescription.</div>
+
+  <div class="process-step">
+    AYO Verification
+    <div class="description-box">AYO verifies customer details and processes request with attached prescription</div>
   </div>
   <div class="arrow"></div>
-  <div class="step">Prescription Verification
-    <div class="description-box">Drugnet MCAs download claim information to verify the claim and prescription.</div>
+
+  <div class="process-step">
+    Prescription Verification
+    <div class="description-box">Drugnet MCAs verify claim & prescription details</div>
   </div>
   <div class="arrow"></div>
-  <div class="step">Google Sheet Entry
-    <div class="description-box">Customer details are filled in a Google Sheet, including names and other relevant information. A unique ID is generated for the customer for the transaction.</div>
+
+  <div class="process-step">
+    Google Sheet Entry
+    <div class="description-box">Customer details recorded in Google Sheet<br>Name: [Customer Name]<br>Contact: [Phone/Email]<br>Generated Unique ID: #MED-2023-XXXX</div>
   </div>
   <div class="arrow"></div>
-  <div class="step">Generate Medicine List
-    <div class="description-box">MCA generates a list of medicines based on the verified prescription.</div>
+
+  <div class="process-step">
+    Medicine List Generation
+    <div class="description-box">MCA generates approved medication list based on prescription</div>
   </div>
   <div class="arrow"></div>
-  <div class="step">Pharmacist Approval
-    <div class="description-box">Drugnet Pharmacists approve the claim after reviewing the medicine list.</div>
+
+  <div class="process-step">
+    Pharmacist Approval
+    <div class="description-box">Drugnet pharmacists review and approve medication list</div>
   </div>
   <div class="arrow"></div>
-  <div class="step">Update AYO Portal
-    <div class="description-box">MCA updates the AYO Portal with the final medication cost as per agreed pricing for Medicare.</div>
+
+  <div class="process-step">
+    Cost Update
+    <div class="description-box">MCA updates AYO Portal with final medication costs</div>
   </div>
   <div class="arrow"></div>
-  <div class="step">Notify Customer
-    <div class="description-box">Customer is notified of the claim approval.</div>
+
+  <div class="process-step">
+    Customer Notification
+    <div class="description-box">Customer receives approval notification with transaction ID</div>
   </div>
   <div class="arrow"></div>
-  <div class="decision">Delivery Location?
-    <div class="description-box">Check if the delivery location is Accra/Tema or elsewhere.</div>
+
+  <!-- Decision Point -->
+  <div class="process-step decision-step">
+    Delivery Location
+    <div class="description-box">Check if delivery is within Accra/Tema or other regions</div>
   </div>
-  <div class="flex-row">
-    <div>
-      <div class="arrow-horizontal"></div>
-      <div class="step">Package & Deliver
-        <div class="description-box">Medication is packaged, dispatched, and delivered to the customer in Accra/Tema.</div>
+
+  <!-- Branch Container -->
+  <div class="branch-container">
+    <div class="branch">
+      <div class="arrow"></div>
+      <div class="process-step">
+        Direct Delivery
+        <div class="description-box">Medication packaged and dispatched to Accra/Tema addresses</div>
       </div>
     </div>
-    <div>
-      <div class="arrow-horizontal"></div>
-      <div class="step">Send Unique Code
-        <div class="description-box">Unique Claim Code with medication list is sent to customers outside Accra/Tema for pickup from a fulfillment partner.</div>
+
+    <div class="branch">
+      <div class="arrow"></div>
+      <div class="process-step">
+        Partner Pickup
+        <div class="description-box">Unique code sent for collection from fulfillment partner</div>
       </div>
     </div>
   </div>
+
+  <!-- Final Steps -->
   <div class="arrow"></div>
-  <div class="step">Fulfillment Partner
-    <div class="description-box">Fulfillment Partner verifies the medication list and unique code via WhatsApp and serves the customer.</div>
+  <div class="process-step">
+    Service Completion
+    <div class="description-box">Fulfillment partner verifies and completes service delivery</div>
   </div>
   <div class="arrow"></div>
-  <div class="step">Daily Reconciliation
-    <div class="description-box">Daily Reconciliation report is sent to the Fulfillment Partner and settled as per agreed pricing.</div>
+
+  <div class="process-step">
+    Daily Reconciliation
+    <div class="description-box">Settlement reports generated and shared with partners</div>
   </div>
   <div class="arrow"></div>
-  <div class="step">End
-    <div class="description-box">Process completed successfully.</div>
+
+  <div class="process-step">
+    End of Process
+    <div class="description-box">Transaction completed and recorded</div>
   </div>
 </div>
-
-<script>
-  // JavaScript to handle click events for descriptions (optional)
-  const steps = document.querySelectorAll('.step, .decision');
-  steps.forEach(step => {
-    step.addEventListener('click', () => {
-      const description = step.querySelector('.description-box');
-      description.style.display = description.style.display === 'block' ? 'none' : 'block';
-    });
-  });
-</script>
 
 </body>
 </html>
